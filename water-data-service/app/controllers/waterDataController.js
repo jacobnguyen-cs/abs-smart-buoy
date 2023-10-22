@@ -1,7 +1,7 @@
 /**
  * Gets all water sensor data
  * @async
- * @functino
+ * @function
  * @param {object} db - Database connection
  * @returns {Promise<Array<object>>} A promise that resolves to an array objects containing the water sensor data
  */
@@ -13,7 +13,7 @@ async function getAllWaterData (db) {
 /**
  * Gets the water sensor data specified by the id
  * @async
- * @functino
+ * @function
  * @param {object} db - Database connection
  * @param {int} id - Water temperature id
  * @returns {Promise<object>} A promise object containing the water sensor data
@@ -27,7 +27,7 @@ async function getWaterData (db, id) {
 /**
  * Adds data to the water sensor
  * @async
- * @functino
+ * @function
  * @param {object} db - Database connection
  * @param {decimal} temp - Water temperature in decimal value
  * @returns {Promise<object>} A promise object containing the water sensor data
@@ -37,6 +37,14 @@ async function addWaterData (db, temp) {
     return result;
 }
 
+/**
+ * Deletes data for the water sensor
+ * @async
+ * @function
+ * @param {object} db - Database connection
+ * @param {int} id - Water temperature id
+ * @returns {Promise<object>} A promise object containing the water sensor data
+ */
 async function deleteWaterData (db, id) {
     const result = await db.runQuery(`DELETE FROM water_data WHERE id=${id} RETURNING *`);
     return result;
