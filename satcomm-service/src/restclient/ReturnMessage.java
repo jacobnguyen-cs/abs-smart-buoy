@@ -12,6 +12,8 @@ public class ReturnMessage
     public String RegionName;
     public int OTAMessageSize;
     public int CustomerID;
+    public int Transport;
+    public int MobileOwnerID;
     
     public ReturnMessage()
     {
@@ -19,7 +21,7 @@ public class ReturnMessage
     }
     
     public ReturnMessage(long ID, String MessageUTC, String ReceiveUTC, int SIN, String MobileID, byte[] RawPayload,
-            Message Payload, String RegionName, int OTAMessageSize, int CustomerID)
+            Message Payload, String RegionName, int OTAMessageSize, int CustomerID, int Transport, int MobileOwnerID)
     {
         super();
         
@@ -33,5 +35,7 @@ public class ReturnMessage
         this.RegionName = RegionName;
         this.OTAMessageSize = OTAMessageSize;
         this.CustomerID = CustomerID;
+        this.Transport = Transport;
+        this.MobileOwnerID = MobileOwnerID;
     }
 }
