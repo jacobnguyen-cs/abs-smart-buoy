@@ -3,22 +3,11 @@ const router = express.Router();
 
 const waterDataController = require("../controllers/waterDataController");
 
-// router
-//     .route("/")
-//     .get(waterDataController.getAllWaterData);
-
-// router
-//     .route("/add")
-//     .post(waterDataController.addWaterData);
-
-// router
-//     .route("/:id")
-//     .get(waterDataController.getWaterData);
-
 router.get("/", async (req, res) => {
     try {
         const db = req.app.locals.db;
-        const result = await waterDataController.getAllWaterData(db);
+        var result = await waterDataController.getAllWaterData(db);
+        result = {"type": "water-temperature", "data": result};
         res.json(result);
     } catch (err) {
         console.error(err);

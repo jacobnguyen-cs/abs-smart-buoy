@@ -182,6 +182,40 @@ public class IGWSRestClient
         
         return null;
     }
+
+    private StringBuilder executeServiceRequest(String serviceOperation) {
+        try {
+            URI getData = new URI(serviceOperation);
+
+            // The following line instructs the gatway to send compressed responses. If you don't want to use compression, use:
+			//     HttpClientBuilder.create().disableContentCompression().build();
+            HttpClient client = HttpClientBuilder.create().build();
+            HttpGet request = new HttpGet(getData);
+
+            // Set the HTTP request timeout
+            RequestConfig requestConfig = RequestConfig.custom()
+                .setSocketTimeout(webServiceRequestTimeoutInSeconds*1000)
+                .setConnectTimeout(webServiceRequestTimeoutInSeconds*1000)
+                .setConnectionRequestTimeout(webServiceRequestTimeoutInSeconds*1000)
+                .build();
+            request.setConfig(requestConfig);
+
+            HttpResponse response = client.execute(request);
+            BufferedReader rd = new BufferedReader (new InputStreamReader(response.getEntity().getContent()));
+            String inputStr;
+            StringBuilder responseStrBuilder = new StringBuilder();
+
+            while ((inputStr = rd.readLine()) != null)
+                responseStrBuilder.append(inputStr);
+
+            return responseStrBuilder;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        return null;
+    }
     
     // -- Get basic IGWS information
     private void getIGWSInformation()
@@ -456,6 +490,7 @@ public class IGWSRestClient
              
             // Convert JSON to a Java object
             String json = responseStrBuilder.toString();
+            System.out.println(json);
             GetReturnMessagesResult restResponse = mapper.readValue(json, GetReturnMessagesResult.class);
             if(restResponse != null && restResponse.ErrorID == 0 && 
                     restResponse.Messages != null && restResponse.Messages.length > 0)
@@ -484,6 +519,34 @@ public class IGWSRestClient
         }
         
         return nextStartUTC;
+    }
+
+    public String retrieveServiceData() {
+        System.out.println("Calling: localhost:5000/waterData");
+
+        try {
+            StringBuilder responseStrBuilder = executeServiceRequest("http://localhost:5000/waterData");
+            if (responseStrBuilder == null) 
+                return "Could not retrieve service data.";
+
+            // Object mapper instance
+            ObjectMapper mapper = new ObjectMapper();
+
+            // Convert JSON to a Java object
+            String json = responseStrBuilder.toString();
+            System.out.println(json);
+            ServiceResponse restResponse = mapper.readValue(json, ServiceResponse.class);
+            if (restResponse != null)
+            {
+                System.out.println(restResponse.type);
+                for (restclient.ServiceData data: restResponse.data)
+                    System.out.println("id: " + data.id + " temp: " + data.temp);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        return "Null message";
     }
 	
 	public void SubmitModemMesssagesSample()
