@@ -23,13 +23,21 @@ public class IGWSRestClient
 {
 	// replace the constants below with values appropriate for your account
 	 
-    final static String gwHost = "isatdatapro.swlab.ca"; // isatdatapro.skywave.com
-    final static int gwPort = 8143; // 443
+    // final static String gwHost = "isatdatapro.swlab.ca"; // isatdatapro.skywave.com
+    // final static int gwPort = 8143; // 443
+    // final static String gwRestBasePath = "/GLGW/2/RestMessages.svc/JSON/";
+
+    // final static String myAccessID = "70000934";
+    // final static String myPassword = "password";
+	// final static String mobileID = "01097623SKY2C68";
+
+    final static String gwHost = "isatdatapro.skywave.com";
+    final static int gwPort = 443;
     final static String gwRestBasePath = "/GLGW/2/RestMessages.svc/JSON/";
-    
-    final static String myAccessID = "70000934";
-    final static String myPassword = "password";
-	final static String mobileID = "01097623SKY2C68";  
+
+    final static String myAccessID = "70003420";
+    final static String myPassword = "MBWCNCKF";
+	final static String mobileID = "02047634SKY6F17";    
     
     final static int pollingIntervalInSeconds = 30; // poll the IGWS once every 30 seconds
     final static int webServiceRequestTimeoutInSeconds = 300; // 5 minute request timeout

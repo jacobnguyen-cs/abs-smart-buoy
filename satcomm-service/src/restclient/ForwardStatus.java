@@ -9,13 +9,14 @@ public class ForwardStatus
     public int ErrorID = 0;
     public int ReferenceNumber=0;
     public String Transport;
+    public String RegionName;
     
     public ForwardStatus()
     {
         
     }
     
-    public ForwardStatus(int ForwardMessageID, boolean IsClosed, int State, String StateUTC, int ErrorID, int ReferenceNumber, String Transport )
+    public ForwardStatus(int ForwardMessageID, boolean IsClosed, int State, String StateUTC, int ErrorID, int ReferenceNumber, String Transport, String RegionName )
     {
         super();
         
@@ -26,5 +27,6 @@ public class ForwardStatus
         this.StateUTC = StateUTC;
         this.Transport = Transport;
         this.ReferenceNumber = ReferenceNumber;
+        this.RegionName = RegionName;
     }
 } 
