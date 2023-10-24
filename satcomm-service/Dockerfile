@@ -8,4 +8,4 @@ WORKDIR /home/app
 
 RUN mvn package
 
-CMD ["java", "-cp", "target/RESTSample-1.0.1.jar", "Main"]
+ENTRYPOINT ["java", "-jar", "target/RESTSample-1.0.1.jar"]
