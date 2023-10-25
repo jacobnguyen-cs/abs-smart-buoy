@@ -3,14 +3,14 @@ package restclient;
 public class ServiceResponse
 {
     public String type;
-    public ServiceData[] data;
+    public WaterTemperature[] data;
 
     public ServiceResponse()
     {
 
     }
 
-    public ServiceResponse(String type, ServiceData[] data)
+    public ServiceResponse(String type, WaterTemperature[] data)
     {
         super();
 

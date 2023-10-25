@@ -1,17 +1,16 @@
 package restclient;
 
-public class ServiceData
+public class WaterTemperature
 {
     public int id;
-    public int type;
     public double temp;
 
-    public ServiceData()
+    public WaterTemperature()
     {
 
     }
 
-    public ServiceData(int id, int type, double temp)
+    public WaterTemperature(int id, int type, double temp)
     {
         super();
 

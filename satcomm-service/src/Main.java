@@ -16,8 +16,9 @@ public class Main
 			// Testing for water temperature service
 			// Start both on --network host in Docker
 			// to use localhost
-			// restClient.retrieveServiceData();
-			
+			// restClient.RetreiveWaterTemperature();
+			// restClient.SendWaterTemperature();
+
 			restClient.GetBasicGatewayAndAccountInfo();
 			restClient.SubmitModemMesssagesSample();
 			
