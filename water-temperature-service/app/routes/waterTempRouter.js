@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const waterDataController = require("../controllers/waterDataController");
+const waterTempController = require("../controllers/waterTempController");
 
 router.get("/", async (req, res) => {
     try {
         const db = req.app.locals.db;
-        var result = await waterDataController.getAllWaterData(db);
+        var result = await waterTempController.getAllWaterTemp(db);
         result = {"type": "water-temperature", "data": result};
         res.json(result);
     } catch (err) {
@@ -19,7 +19,7 @@ router.get("/:id", async (req, res) => {
     try {
         const db = req.app.locals.db;
         const id = req.params.id;
-        const result = await waterDataController.getWaterData(db, id);
+        const result = await waterTempController.getWaterTemp(db, id);
         res.json(result);
     } catch (err) {
         console.error(err);
@@ -31,7 +31,7 @@ router.delete("/:id", async (req, res) => {
     try {
         const db = req.app.locals.db;
         const id = req.params.id;
-        const result = await waterDataController.deleteWaterData(db, id);
+        const result = await waterTempController.deleteWaterTemp(db, id);
         res.json(result);
     } catch (err) {
         console.error(err);
@@ -42,8 +42,10 @@ router.delete("/:id", async (req, res) => {
 router.post("/add", async (req, res) => {
     try {
         const db = req.app.locals.db;
+        const id = req.body.id;
         const temp = req.body.temp;
-        const result = await waterDataController.addWaterData(db, temp);
+        var result = await waterTempController.addWaterTemp(db, id, temp);
+        result = {"type": "water-temperature", "data": result};
         res.json(result);
     } catch (err) {
         console.error(err);

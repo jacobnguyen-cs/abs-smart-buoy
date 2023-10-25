@@ -501,6 +501,9 @@ public class IGWSRestClient
                 for(restclient.ReturnMessage msg: restResponse.Messages)
                     System.out.println("    Message ID: " + msg.ID + " from terminal " + msg.MobileID + " Region: " + msg.RegionName + " Payload SIN: " + msg.Payload.SIN);
                 
+                /* SEND TO WATER TEMPERATURE SERVICE */
+                // Should call SendWaterTemperature() HERE
+
                 // -- Get the next StartUTC, but only if Messages array is not empty
                 nextStartUTC = restResponse.NextStartUTC;
                 return nextStartUTC;
@@ -521,11 +524,11 @@ public class IGWSRestClient
         return nextStartUTC;
     }
 
-    public String retrieveServiceData() {
-        System.out.println("Calling: localhost:5000/waterData");
+    public String RetreiveWaterTemperature() {
+        System.out.println("Calling: http://localhost:5000/waterTemp");
 
         try {
-            StringBuilder responseStrBuilder = executeServiceRequest("http://localhost:5000/waterData");
+            StringBuilder responseStrBuilder = executeServiceRequest("http://localhost:5000/waterTemp");
             if (responseStrBuilder == null) 
                 return "Could not retrieve service data.";
 
@@ -539,7 +542,7 @@ public class IGWSRestClient
             if (restResponse != null)
             {
                 System.out.println(restResponse.type);
-                for (restclient.ServiceData data: restResponse.data)
+                for (restclient.WaterTemperature data: restResponse.data)
                     System.out.println("id: " + data.id + " temp: " + data.temp);
             }
         } catch (Exception ex) {
@@ -603,7 +606,7 @@ public class IGWSRestClient
             while ((responseStr = rd.readLine()) != null) 
                 responseStrBuilder.append(responseStr);
             
-         // Convert JSON to a Java object
+            // Convert JSON to a Java object
             String jsonResponse = responseStrBuilder.toString();
             SubmitMessagesResult restResponse = mapper.readValue(jsonResponse, SubmitMessagesResult.class);
             if(restResponse != null && restResponse.ErrorID == 0 && 
@@ -621,6 +624,55 @@ public class IGWSRestClient
             }
         }
         catch(Exception ex){
+            System.out.println(ex);
+        }
+    }
+
+    public void SendWaterTemperature(/* WaterTemperature sendWaterTemp */)
+    {
+        System.out.println("Attempting to send data to water temperature service");
+        try {
+            HttpClient client = HttpClientBuilder.create().build();
+            HttpPost postRequest = new HttpPost("http://localhost:5000/waterTemp/add");
+
+            // Set the HTTP request timeout
+            RequestConfig requestConfig = RequestConfig.custom()
+              .setSocketTimeout(webServiceRequestTimeoutInSeconds*1000)
+              .setConnectTimeout(webServiceRequestTimeoutInSeconds * 1000)
+              .setConnectionRequestTimeout(webServiceRequestTimeoutInSeconds * 1000)
+              .build();
+            postRequest.setConfig(requestConfig);
+
+            // CREATE DATA TO SEND
+            WaterTemperature sendWaterTemp = new WaterTemperature();
+            sendWaterTemp.id = 70;
+            sendWaterTemp.temp = 70.9;
+
+            // Convert a Java object to JSON
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(sendWaterTemp);
+
+            StringEntity input = new StringEntity(json);
+            input.setContentType("application/json");
+            postRequest.setEntity(input);
+
+            HttpResponse response = client.execute(postRequest);
+            BufferedReader rd = new BufferedReader (new InputStreamReader(response.getEntity().getContent()));
+            String responseStr;
+            StringBuilder responseStrBuilder = new StringBuilder();
+
+            while ((responseStr = rd.readLine()) != null)
+                responseStrBuilder.append(responseStr);
+
+            // Convert JSON to a Java object
+            String jsonResponse = responseStrBuilder.toString();
+            ServiceResponse restResponse = mapper.readValue(jsonResponse, ServiceResponse.class);
+            if (restResponse != null)
+            {
+                for (restclient.WaterTemperature data: restResponse.data)
+                    System.out.println("id: " + data.id + " temp: " + data.temp);
+            }
+        } catch (Exception ex) {
             System.out.println(ex);
         }
     }

@@ -5,8 +5,8 @@
  * @param {object} db - Database connection
  * @returns {Promise<Array<object>>} A promise that resolves to an array objects containing the water sensor data
  */
-async function getAllWaterData (db) {
-    const result = await db.runQuery("SELECT * FROM water_data");
+async function getAllWaterTemp (db) {
+    const result = await db.runQuery("SELECT * FROM water_temp");
     return result;
 }
 
@@ -18,8 +18,8 @@ async function getAllWaterData (db) {
  * @param {int} id - Water temperature id
  * @returns {Promise<object>} A promise object containing the water sensor data
  */
-async function getWaterData (db, id) {
-    const result = await db.runQuery(`SELECT * FROM water_data WHERE id=${id}`);
+async function getWaterTemp (db, id) {
+    const result = await db.runQuery(`SELECT * FROM water_temp WHERE id=${id}`);
     return result;
 }
 
@@ -29,11 +29,12 @@ async function getWaterData (db, id) {
  * @async
  * @function
  * @param {object} db - Database connection
+ * @param {int} id - ID for water temperature
  * @param {decimal} temp - Water temperature in decimal value
  * @returns {Promise<object>} A promise object containing the water sensor data
  */
-async function addWaterData (db, temp) {
-    const result = await db.runQuery(`INSERT INTO water_data (temp) VALUES(${temp}) RETURNING *`);
+async function addWaterTemp (db, id, temp) {
+    const result = await db.runQuery(`INSERT INTO water_temp (id, temp) VALUES(${id}, ${temp}) RETURNING *`);
     return result;
 }
 
@@ -45,14 +46,14 @@ async function addWaterData (db, temp) {
  * @param {int} id - Water temperature id
  * @returns {Promise<object>} A promise object containing the water sensor data
  */
-async function deleteWaterData (db, id) {
-    const result = await db.runQuery(`DELETE FROM water_data WHERE id=${id} RETURNING *`);
+async function deleteWaterTemp (db, id) {
+    const result = await db.runQuery(`DELETE FROM water_temp WHERE id=${id} RETURNING *`);
     return result;
 }
 
 module.exports = {
-    getAllWaterData,
-    getWaterData,
-    addWaterData,
-    deleteWaterData
+    getAllWaterTemp,
+    getWaterTemp,
+    addWaterTemp,
+    deleteWaterTemp
 };
