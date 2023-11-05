@@ -5,11 +5,11 @@ const app = express();
 const port = 5000 || 3000;
 const waterTempRoute = require("./routes/waterTempRouter");
 
-const db = new Database();
+// const db = new Database();
 
 app.use(express.json());
 
-app.locals.db = db;
+// app.locals.db = db;
 
 app.use("/waterTemp", waterTempRoute);
 
