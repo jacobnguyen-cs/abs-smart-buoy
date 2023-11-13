@@ -1,3 +1,3 @@
 # abs-smart-buoy
-Getting Started \
+**Getting Started** \
 Run `npm install` on the JS services
