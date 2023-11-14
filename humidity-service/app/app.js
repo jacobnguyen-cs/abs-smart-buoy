@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5000 || 3000;
+const port = 80;
 const humidityRoute = require("./routes/humidityRouter");
 
 app.use(express.json());
