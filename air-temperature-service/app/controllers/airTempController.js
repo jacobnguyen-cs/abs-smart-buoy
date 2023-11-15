@@ -1,5 +1,11 @@
 const { TimestreamWriteClient, WriteRecordsCommand } = require("@aws-sdk/client-timestream-write")
-const writeClient = new TimestreamWriteClient({ region: "us-east-2" });
+const writeClient = new TimestreamWriteClient({
+    region: "us-east-2",
+    credentials: {
+        accessKeyId: "Insert access key here",
+        secretAccessKey: "Insert secret access key here"
+    }
+});
 
 /**
  * Stores water temperature in the time series database

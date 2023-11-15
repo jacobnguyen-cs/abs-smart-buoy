@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5000 || 3000;
+const port = 80;
 const airTempRoute = require("./routes/airTempRouter");
 
 app.use(express.json());
