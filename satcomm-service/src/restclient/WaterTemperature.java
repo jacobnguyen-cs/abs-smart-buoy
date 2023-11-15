@@ -2,19 +2,19 @@ package restclient;
 
 public class WaterTemperature
 {
-    public int id;
     public double temp;
+    public String time;
 
     public WaterTemperature()
     {
 
     }
 
-    public WaterTemperature(int id, int type, double temp)
+    public WaterTemperature(double temp, String time)
     {
         super();
 
-        this.id = id;
         this.temp = temp;
+        this.time = time;
     }
 }

@@ -14,10 +14,8 @@ public class Main
 			IGWSRestClient restClient = new IGWSRestClient();
 
 			// Testing for water temperature service
-			// Start both on --network host in Docker
-			// to use localhost
-			// restClient.RetreiveWaterTemperature();
-			// restClient.SendWaterTemperature();
+			// Start both on --network host in Docker to use localhost
+			// restClient.sendWaterTemperature();
 
 			restClient.GetBasicGatewayAndAccountInfo();
 			restClient.SubmitModemMesssagesSample();

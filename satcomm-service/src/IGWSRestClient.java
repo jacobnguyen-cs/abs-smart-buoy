@@ -182,40 +182,6 @@ public class IGWSRestClient
         
         return null;
     }
-
-    private StringBuilder executeServiceRequest(String serviceOperation) {
-        try {
-            URI getData = new URI(serviceOperation);
-
-            // The following line instructs the gatway to send compressed responses. If you don't want to use compression, use:
-			//     HttpClientBuilder.create().disableContentCompression().build();
-            HttpClient client = HttpClientBuilder.create().build();
-            HttpGet request = new HttpGet(getData);
-
-            // Set the HTTP request timeout
-            RequestConfig requestConfig = RequestConfig.custom()
-                .setSocketTimeout(webServiceRequestTimeoutInSeconds*1000)
-                .setConnectTimeout(webServiceRequestTimeoutInSeconds*1000)
-                .setConnectionRequestTimeout(webServiceRequestTimeoutInSeconds*1000)
-                .build();
-            request.setConfig(requestConfig);
-
-            HttpResponse response = client.execute(request);
-            BufferedReader rd = new BufferedReader (new InputStreamReader(response.getEntity().getContent()));
-            String inputStr;
-            StringBuilder responseStrBuilder = new StringBuilder();
-
-            while ((inputStr = rd.readLine()) != null)
-                responseStrBuilder.append(inputStr);
-
-            return responseStrBuilder;
-
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-
-        return null;
-    }
     
     // -- Get basic IGWS information
     private void getIGWSInformation()
@@ -523,34 +489,6 @@ public class IGWSRestClient
         
         return nextStartUTC;
     }
-
-    public String RetreiveWaterTemperature() {
-        System.out.println("Calling: http://localhost:5000/waterTemp");
-
-        try {
-            StringBuilder responseStrBuilder = executeServiceRequest("http://localhost:5000/waterTemp");
-            if (responseStrBuilder == null) 
-                return "Could not retrieve service data.";
-
-            // Object mapper instance
-            ObjectMapper mapper = new ObjectMapper();
-
-            // Convert JSON to a Java object
-            String json = responseStrBuilder.toString();
-            System.out.println(json);
-            ServiceResponse restResponse = mapper.readValue(json, ServiceResponse.class);
-            if (restResponse != null)
-            {
-                System.out.println(restResponse.type);
-                for (restclient.WaterTemperature data: restResponse.data)
-                    System.out.println("id: " + data.id + " temp: " + data.temp);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-
-        return "Null message";
-    }
 	
 	public void SubmitModemMesssagesSample()
     {
@@ -628,12 +566,14 @@ public class IGWSRestClient
         }
     }
 
-    public void SendWaterTemperature(/* WaterTemperature sendWaterTemp */)
+
+    // execute POST request to water temperature service
+    public void sendWaterTemperature()
     {
         System.out.println("Attempting to send data to water temperature service");
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            HttpPost postRequest = new HttpPost("http://localhost:5000/waterTemp/add");
+            HttpPost postRequest = new HttpPost("http://localhost:80/waterTemp/add");
 
             // Set the HTTP request timeout
             RequestConfig requestConfig = RequestConfig.custom()
@@ -645,8 +585,8 @@ public class IGWSRestClient
 
             // CREATE DATA TO SEND
             WaterTemperature sendWaterTemp = new WaterTemperature();
-            sendWaterTemp.id = 70;
-            sendWaterTemp.temp = 70.9;
+            sendWaterTemp.temp = 71.0;
+            sendWaterTemp.time = String.valueOf(System.currentTimeMillis());
 
             // Convert a Java object to JSON
             ObjectMapper mapper = new ObjectMapper();
@@ -661,17 +601,7 @@ public class IGWSRestClient
             String responseStr;
             StringBuilder responseStrBuilder = new StringBuilder();
 
-            while ((responseStr = rd.readLine()) != null)
-                responseStrBuilder.append(responseStr);
-
-            // Convert JSON to a Java object
-            String jsonResponse = responseStrBuilder.toString();
-            ServiceResponse restResponse = mapper.readValue(jsonResponse, ServiceResponse.class);
-            if (restResponse != null)
-            {
-                for (restclient.WaterTemperature data: restResponse.data)
-                    System.out.println("id: " + data.id + " temp: " + data.temp);
-            }
+            System.out.println("Successfully Added to Timestream!");
         } catch (Exception ex) {
             System.out.println(ex);
         }
