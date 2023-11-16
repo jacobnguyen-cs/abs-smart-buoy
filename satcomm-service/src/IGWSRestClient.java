@@ -573,7 +573,7 @@ public class IGWSRestClient
         System.out.println("Attempting to send data to water temperature service");
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            HttpPost postRequest = new HttpPost("http://localhost:80/waterTemp/add");
+            HttpPost postRequest = new HttpPost("water-temperature-service-alb-1534773001.us-east-2.elb.amazonaws.com/waterTemp/add");
 
             // Set the HTTP request timeout
             RequestConfig requestConfig = RequestConfig.custom()
@@ -601,7 +601,11 @@ public class IGWSRestClient
             String responseStr;
             StringBuilder responseStrBuilder = new StringBuilder();
 
-            System.out.println("Successfully Added to Timestream!");
+            while ((responseStr = rd.readLine()) != null) 
+                responseStrBuilder.append(responseStr);
+            
+            String jsonResponse = responseStrBuilder.toString();
+            System.out.println(jsonResponse);
         } catch (Exception ex) {
             System.out.println(ex);
         }
