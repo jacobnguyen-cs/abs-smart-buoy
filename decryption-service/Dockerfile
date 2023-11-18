@@ -1,9 +1,13 @@
-FROM alpine:3
-RUN apk update
-RUN apk add py-pip
-RUN apk add --no-cache python3-dev
-RUN pip install --upgrade pip
+FROM python:3-alpine
+
+COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
-COPY . /app
-RUN pip --no-cache-dir install -r requirements.txt
-CMD ["python", "run.py"]
+RUN pip install -r requirements.txt
+
+COPY ./app /app
+COPY run.py /app/runy.py
+
+EXPOSE 5000
+
+ENTRYPOINT ["python"]
+CMD ["run.py"]
