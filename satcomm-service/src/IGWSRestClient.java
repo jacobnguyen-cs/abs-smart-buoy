@@ -573,7 +573,7 @@ public class IGWSRestClient
         System.out.println("Attempting to send data to water temperature service");
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            HttpPost postRequest = new HttpPost("water-temperature-service-alb-1534773001.us-east-2.elb.amazonaws.com/waterTemp/add");
+            HttpPost postRequest = new HttpPost("http://water-temperature-service-alb-1534773001.us-east-2.elb.amazonaws.com/waterTemp/add");
 
             // Set the HTTP request timeout
             RequestConfig requestConfig = RequestConfig.custom()
