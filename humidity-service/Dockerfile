@@ -4,6 +4,6 @@ RUN mkdir -p /home/app
 
 COPY ./app /home/app
 
-EXPOSE 80
+EXPOSE 5002
 
 CMD ["node", "./home/app/app.js"]
