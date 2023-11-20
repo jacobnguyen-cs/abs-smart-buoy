@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5000 || 3000;
+const port = 5000;
 const waterTempRoute = require("./routes/waterTempRouter");
 
 app.use(express.json());
