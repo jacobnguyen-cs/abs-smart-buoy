@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 import requests
-import time
 
 app = Flask(__name__)
 CORS(app)
@@ -18,6 +17,4 @@ def decryption_service():
     return str(r)
 
 if __name__ == '__main__':
-    current_time = str(int(round(time.time() * 1000)))
-    print(current_time)
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=6000)

@@ -5,7 +5,7 @@ COPY ./run.py /app
 WORKDIR /app
 RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 5001
+EXPOSE 6000
 
 ENTRYPOINT ["python"]
 CMD ["run.py"]
