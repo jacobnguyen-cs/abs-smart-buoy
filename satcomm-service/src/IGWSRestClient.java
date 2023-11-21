@@ -444,6 +444,7 @@ public class IGWSRestClient
         System.out.println("Calling: get_return_messages");
         
         String nextStartUTC = startUTC;
+        startUTC = "2023-11-15 00:52:04 UTC";
         try
         {
             String parameters = "&start_utc=" + startUTC + "&include_raw_payload=true";
@@ -456,7 +457,6 @@ public class IGWSRestClient
              
             // Convert JSON to a Java object
             String json = responseStrBuilder.toString();
-            System.out.println(json);
             GetReturnMessagesResult restResponse = mapper.readValue(json, GetReturnMessagesResult.class);
             if(restResponse != null && restResponse.ErrorID == 0 && 
                     restResponse.Messages != null && restResponse.Messages.length > 0)
@@ -465,10 +465,7 @@ public class IGWSRestClient
                 System.out.println("    Number of retrieved messages: " + restResponse.Messages.length);
                 
                 for(restclient.ReturnMessage msg: restResponse.Messages)
-                    System.out.println("    Message ID: " + msg.ID + " from terminal " + msg.MobileID + " Region: " + msg.RegionName + " Payload SIN: " + msg.Payload.SIN);
-                
-                /* SEND TO WATER TEMPERATURE SERVICE */
-                // Should call SendWaterTemperature() HERE
+                    sendData(msg);
 
                 // -- Get the next StartUTC, but only if Messages array is not empty
                 nextStartUTC = restResponse.NextStartUTC;
@@ -568,12 +565,13 @@ public class IGWSRestClient
 
 
     // execute POST request to water temperature service
-    public void sendWaterTemperature()
+    public void sendData(restclient.ReturnMessage msg)
     {
         System.out.println("Attempting to send data to water temperature service");
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            HttpPost postRequest = new HttpPost("http://water-temperature-service-alb-1534773001.us-east-2.elb.amazonaws.com/waterTemp/add");
+            // HttpPost postRequest = new HttpPost("http://decryption-service-alb-2134574620.us-east-2.elb.amazonaws.com/decrypt");
+             HttpPost postRequest = new HttpPost("http://localhost:6000/decrypt");
 
             // Set the HTTP request timeout
             RequestConfig requestConfig = RequestConfig.custom()
@@ -583,14 +581,9 @@ public class IGWSRestClient
               .build();
             postRequest.setConfig(requestConfig);
 
-            // CREATE DATA TO SEND
-            WaterTemperature sendWaterTemp = new WaterTemperature();
-            sendWaterTemp.temp = 71.0;
-            sendWaterTemp.time = String.valueOf(System.currentTimeMillis());
-
             // Convert a Java object to JSON
             ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(sendWaterTemp);
+            String json = mapper.writeValueAsString(msg);
 
             StringEntity input = new StringEntity(json);
             input.setContentType("application/json");
