@@ -5,11 +5,12 @@ const waterTempController = require("../controllers/waterTempController");
 
 router.post("/add", async (req, res) => {
     try {
-        const value = req.body.temp
-        const time = req.body.time
-        var result = await waterTempController.storeWaterTemp(value, time)
-        result = {"type": "water-temperature", "data": result}
-        res.json(result)
+        const payload = req.body.RawPayload;
+        const temp = payload.data.temp;
+        const time = payload.data.time;
+        var result = await waterTempController.storeWaterTemp(temp, time);
+        result = {"type": payload.type, "data": payload.data};
+        res.json(result);
     } catch (err) {
         console.error(err);
         res.sendStatus(500);
