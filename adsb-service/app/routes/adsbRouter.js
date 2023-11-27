@@ -6,11 +6,11 @@ const adsbController = require("../controllers/adsbController");
 router.post("/add", async (req, res) => {
     try {
         console.log(req.body.data)
-        const time = req.body.time;
-        const lat = req.body.lat;
-        const long = req.body.long
+        const time = req.body.data.time;
+        const lat = req.body.data.lat;
+        const long = req.body.data.long
         var result = await adsbController.storeADSBData(lat, long, time)
-        // result = {"type": req.body.type, "data": req.body.data};
+        result = {"type": req.body.type, "data": req.body.data};
         res.json(result);
     } catch (err) {
         console.error(err);

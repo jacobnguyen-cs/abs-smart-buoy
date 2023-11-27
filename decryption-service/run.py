@@ -51,6 +51,10 @@ def decryption_service():
         url = 'http://airtemp-service-alb-328567053.us-east-2.elb.amazonaws.com/airTemp/add'
     elif data['type'] == 'humidity':
         url = 'http://humidity-service-alb-597444042.us-east-2.elb.amazonaws.com/humidity/add'
+    elif data['type'] == 'adsb':
+        url = 'http://adsb-alb-69257456.us-east-2.elb.amazonaws.com/adsbData/add'
+    elif data['type'] == 'console':
+        url = 'http://console-service-alb-1397661684.us-east-2.elb.amazonaws.com/logs/add'
 
     r = requests.post(url, json=data)
     return str(r)

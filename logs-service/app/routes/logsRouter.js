@@ -5,10 +5,10 @@ const logsController = require("../controllers/logsController");
 
 router.post("/add", async (req, res) => {
     try {
-        const log = req.body.log;
-        const time = req.body.time;
+        const log = req.body.data.log;
+        const time = req.body.data.time;
         var result = await logsController.storeLog(log, time);
-        // result = {"type": req.body.type, "data": req.body.data};
+        result = {"type": req.body.type, "data": req.body.data};
         res.json(result);
     } catch (err) {
         console.error(err);
