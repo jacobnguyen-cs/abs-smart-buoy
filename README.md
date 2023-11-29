@@ -9,13 +9,13 @@ npm insall
 2. Build the Docker image.
 ```
 cd ..
-docker build -t image-name .
+docker build -t _image-name_ .
 ```
 3. Upload the Docker image to AWS ECR.
 ```
-aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
-docker tag image-name:latest aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
-docker push aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
+aws ecr get-login-password --region _region_ | docker login --username AWS --password-stdin *aws_account_id*.dkr.ecr._region_.amazonaws.com
+docker tag _image-name_:latest aws_account_id.dkr.ecr.region.amazonaws.com/_repository-name_
+docker push *aws_account_id*.dkr.ecr._region_.amazonaws.com/_repository-name_
 ```
 ### Setting Up the Air Temperature Image
 1. Install the required packages.
@@ -27,7 +27,7 @@ npm insall
 2. Build the Docker image.
 ```
 cd ..
-docker build -t image-name .
+docker build -t _image-name_ .
 ```
 3. Upload the Docker image to AWS ECR.
 ```
