@@ -1,53 +1,65 @@
 # abs-smart-buoy
-### Setting Up The ADS-B Image
-1. First the required packages must be installed so run these commands. \
+### Setting Up the ADS-B Image For
+1. Install the required packages.
 ```
 cd adsb-service
 cd app
 npm insall
 ```
-2. After the required packages have been installed, build the Docker image. \
+2. Build the Docker image.
 ```
 cd ..
 docker build -t image-name .
 ```
-3. The Docker image will then need to be pushed to AWS Elastic Container Registry. Run these commands within the AWS CLI to push the Docker image to ECR. \
+3. Upload the Docker image to AWS ECR.
 ```
 aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
 docker tag image-name:latest aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
 docker push aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
 ```
-### Setting Up The Air Temperature Image
-1. First the required packages must be installed so run these commands. \
+### Setting Up the Air Temperature Image
+1. Install the required packages.
 ```
 cd air-temperature-service
 cd app
 npm insall
 ```
-2. After the required packages have been installed, build the Docker image. \
+2. Build the Docker image.
 ```
 cd ..
 docker build -t image-name .
 ```
-3. The Docker image will then need to be pushed to AWS Elastic Container Registry. Run these commands within the AWS CLI to push the Docker image to ECR. \
+3. Upload the Docker image to AWS ECR.
 ```
 aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
 docker tag image-name:latest aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
 docker push aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
 ```
-### Setting Up The Water Temperature Image
-1. First the required packages must be installed so run these commands. \
+### Setting Up the Water Temperature Image
+1. Install the required packages.
 ```
 cd water-temperature-service
 cd app
 npm insall
 ```
-2. After the required packages have been installed, build the Docker image. \
+2. Build the Docker image.
 ```
 cd ..
 docker build -t image-name .
 ```
-3. The Docker image will then need to be pushed to AWS Elastic Container Registry. Run these commands within the AWS CLI to push the Docker image to ECR. \
+3. Upload the Docker image to AWS ECR
+```
+aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
+docker tag image-name:latest aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
+docker push aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
+```
+### Setting Up the Decryption Image for Over-the-Internet
+1. Build the Docker image.
+```
+cd decryption-service
+docker build -t image-name .
+```
+2. Upload the Docker image to AWS ECR
 ```
 aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
 docker tag image-name:latest aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
