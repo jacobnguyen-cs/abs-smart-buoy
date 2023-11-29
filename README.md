@@ -1,5 +1,5 @@
 # abs-smart-buoy
-### Setting Up the ADS-B Image For
+### Setting Up the ADS-B Image
 1. Install the required packages.
 ```
 cd adsb-service
