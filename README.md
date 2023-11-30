@@ -73,5 +73,9 @@ docker tag image-name:latest aws_account_id.dkr.ecr.region.amazonaws.com/reposit
 docker push aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
 ```
 ## Setting Up Services on AWS Elastic Container Services
-Follow this guide to setup the application load balancer with AWS ECS Fargate:
-[https://www.youtube.com/watch?v=gVTdcR5bdUk](https://www.youtube.com/watch?v=gVTdcR5bdUk)
+Follow this guide to setup the application load balancer with AWS ECS Fargate: \
+[https://www.youtube.com/watch?v=gVTdcR5bdUk](https://www.youtube.com/watch?v=gVTdcR5bdUk) \
+**Note:** Each microservice has its own application load balancer \
+## UNFINISHED
+### Decryption Service
+https://github.com/jacobnguyen-cs/abs-smart-buoy/blob/f2da6becd3c86c476988b15fad14c02cacf3df2c/decryption-service/run.py#L27-L46
