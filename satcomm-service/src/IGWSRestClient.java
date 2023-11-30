@@ -444,7 +444,6 @@ public class IGWSRestClient
         System.out.println("Calling: get_return_messages");
         
         String nextStartUTC = startUTC;
-        startUTC = "2023-11-15 00:52:04 UTC";
         try
         {
             String parameters = "&start_utc=" + startUTC + "&include_raw_payload=true";
