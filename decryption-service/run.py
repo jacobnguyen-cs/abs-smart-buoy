@@ -35,13 +35,15 @@ def decryption_service():
     data = pickle.loads(data)
 
     ### Satellite Communication ###
-    # url = ''
+    # url = 'http://console-service-alb-1397661684.us-east-2.elb.amazonaws.com/logs/add'
     # if data['RawPayload']['type'] == 'water-temperature':
     #     url = 'http://water-temperature-service-alb-1181570115.us-east-2.elb.amazonaws.com/waterTemp/add'
     # elif data['RawPayload']['type'] == 'air-temperature':
     #     url = 'http://airtemp-service-alb-328567053.us-east-2.elb.amazonaws.com/airTemp/add'
     # elif data['RawPayload']['type'] == 'humidity':
     #     url = 'http://humidity-service-alb-597444042.us-east-2.elb.amazonaws.com/humidity/add'
+    # elif data['RawPayload']['type'] == 'adsb':
+    #     url = 'http://adsb-alb-69257456.us-east-2.elb.amazonaws.com/adsbData/add'
 
     ### Over Internet ###
     url = 'http://console-service-alb-1397661684.us-east-2.elb.amazonaws.com/logs/add'
