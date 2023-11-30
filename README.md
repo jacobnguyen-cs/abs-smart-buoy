@@ -1,6 +1,7 @@
 # abs-smart-buoy
 ## Prerequisites
-The services used on Amazon Web Services were all used under a _root user_ account which is not recommended and should instead be used as an IAM user account to ensure security.\
+> [!WARNING]
+> The services used on Amazon Web Services were all used under a _root user_ account which is **not** recommended and should instead be used as an **IAM user** account to ensure security.\
 Before setting up the Docker images make sure of the following:
 1. At least [Node.js v18.15.0](https://nodejs.org/en/download) is installed
 2. At least [Python 3.11.3](https://www.python.org/downloads/) is installed
