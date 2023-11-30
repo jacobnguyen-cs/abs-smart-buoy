@@ -137,8 +137,11 @@ docker push aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
 ## Setting Up Services on AWS Elastic Container Services
 Follow this guide to setup the application load balancer with AWS ECS Fargate: \
 [https://www.youtube.com/watch?v=gVTdcR5bdUk](https://www.youtube.com/watch?v=gVTdcR5bdUk) \
-**Note:** Each microservice has its own application load balancer \
+**Note:** Each microservice has its own application load balancer
 ## UNFINISHED
 ### Decryption Service Over Satellite
 https://github.com/jacobnguyen-cs/abs-smart-buoy/blob/f2da6becd3c86c476988b15fad14c02cacf3df2c/decryption-service/run.py#L27-L46
-In this code snippet from the run.py file in the decryption-service directory, the ST2100 message is first decoded, decrypted, and then routed to the proper microservice. When testing the messages coming from the IGWS2 Gateway, the team concluded that this is the proper way to initially check if the "from-mobile" message is a system response or a data point sent by the Raspberry Pi. It should also be noted that the encryption/decryption service is using symmetric key encryption, as the buoy will be operating remotely with no proper way to use asymmetric key encryption.
+In this code snippet from the run.py file in the decryption-service directory, the ST2100 message is first decoded, decrypted, and then routed to the proper microservice. When testing the messages coming from the IGWS2, the team concluded that this is the proper way to initially check if the "from-mobile" message is a system response or a data point sent by the Raspberry Pi. It should also be noted that the encryption/decryption service is using symmetric key encryption, as the buoy will be operating remotely with no proper way to use asymmetric key encryption.
+### IGWS2 Data Flow
+
+
