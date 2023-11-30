@@ -60,7 +60,7 @@ aws ecr get-login-password --region region | docker login --username AWS --passw
 docker tag image-name:latest aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
 docker push aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
 ```
-### Setting Up the Decryption Image for Over-the-Internet
+### Setting Up the Decryption Image
 1. Build the Docker image.
 ```
 cd decryption-service
@@ -72,3 +72,6 @@ aws ecr get-login-password --region region | docker login --username AWS --passw
 docker tag image-name:latest aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
 docker push aws_account_id.dkr.ecr.region.amazonaws.com/repository-name
 ```
+## Setting Up Services on AWS Elastic Container Services
+Follow this guide to setup the application load balancer with AWS ECS Fargate:
+[https://www.youtube.com/watch?v=gVTdcR5bdUk](https://www.youtube.com/watch?v=gVTdcR5bdUk)
