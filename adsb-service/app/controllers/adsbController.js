@@ -15,7 +15,7 @@ const writeClient = new TimestreamWriteClient({
  * @param {Time} time 
  * @returns {Promise<object>} A promise object containing the water temperature data
  */
-async function storeADSBData(lat, long, time) {
+async function storeADSBData(lat, addr, long, time) {
     const DATABASE_NAME = "ADSBDatabase"
     const TABLE_NAME = "ADSBTable"
     console.log("Writing records");
@@ -27,7 +27,7 @@ async function storeADSBData(lat, long, time) {
     const data_point = {
         'Dimensions': dimensions,
         'MeasureName': "adsb_data",
-        'MeasureValues': [{ 'Name': 'adsb_longitude', 'Type': "DOUBLE", 'Value': long.toString() }, { 'Name': 'adsb_latitude', 'Type': 'DOUBLE', 'Value': lat.toString() }],
+        'MeasureValues': [{ 'Name': 'adsb_addr', 'Type': 'VARCHAR', 'Value': addr.toString() }, { 'Name': 'adsb_longitude', 'Type': "DOUBLE", 'Value': long.toString() }, { 'Name': 'adsb_latitude', 'Type': 'DOUBLE', 'Value': lat.toString() }],
         'MeasureValueType': 'MULTI',
         'Time': time.toString()
     }
